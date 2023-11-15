@@ -32,7 +32,8 @@ public class MagicSquareChecker
             System.out.printf( "Hello! What would you like to do?%n" ) ;
             System.out.printf( "(1) Determine if a given matrix is a solution for an NxN normal magic square%n" ) ;
             System.out.printf( "(2) Determine all of the solutions for an NxN normal magic square" ) ;
-
+                
+            // reads in and checks if given input is valid
             do
                 {
                 if ( !badInput ) 
@@ -76,6 +77,7 @@ public class MagicSquareChecker
             // first option chosen
             if ( userInputI == 1 )
                 {
+                // reads in and checks if input is valid
                 do
                     {
                     if ( !badInput ) 
@@ -112,7 +114,7 @@ public class MagicSquareChecker
 
                     } while ( badInput ) ;
                 
-                
+                // magic squares of 1x1 and 2x2 dimensions are simple/special, no further input needed
                 if ( userInputI == 1 )
                     {
                     System.out.printf( "A 1x1 normal magic square has only 1 solution: [1]" ) ;
@@ -126,10 +128,12 @@ public class MagicSquareChecker
                     inputReader.close() ;
                     return ;
                     }
-                
+
+                // if chosen dimensions are 3x3 or higher, actual input is needed 
                 int numOfVars = ( int ) ( Math.pow( userInputI, 2 ) ) ;
                 int [][] matrix = new int[userInputI][userInputI] ;
                 int [] nums = new int[ numOfVars ] ;
+                // reads in, stores, and checks validity of given matrix
                 do
                     {
                     if ( !badInput ) 
@@ -153,14 +157,16 @@ public class MagicSquareChecker
                         }
                     
                     badInput = false ;
-                    
+
+                    // checks if input is null or blank
                     if ( userInputS.length() == 0 )
                         {
                         System.out.printf( "Error - Invalid Format or Non %dx%d Matrix Given", userInputI, userInputI ) ;
                         badInput = true ;
                         continue ;
                         }
-                    
+
+                    // checks if given input has numbers and symbols in expected amounts and order
                     int numCommas = 0 ;
                     int numColons = 0 ;
                     int numOpenBrackets = 0 ;
@@ -200,7 +206,7 @@ public class MagicSquareChecker
                             }
                         
                         }
-                    
+                    // unexpected number of certain symbols or invalid symbols given
                     if ( ( badInput ) || ( numCommas != ( numOfVars - 1 - ( userInputI - 1 ) ) ) || ( numOpenBrackets != 1 ) || ( numClosedBrackets != 1 ) || ( numColons != ( userInputI - 1 ) ) )
                         {
                         System.out.printf( "Error - Invalid Format or Non %dx%d Matrix Given", userInputI, userInputI ) ;
@@ -208,7 +214,7 @@ public class MagicSquareChecker
                         continue ;
                         }
                     
-                    
+                    // unexpected ordering of brackets
                     char currentCharacter = userInputS.charAt( 0 );
                     if ( currentCharacter != '[')
                         {
@@ -223,6 +229,7 @@ public class MagicSquareChecker
                         badInput = true ;
                         continue ;
                         }
+                    // confirms given matrix isn't empty
                     currentCharacter = userInputS.charAt( 1 );
                     if ( !Character.isDigit( currentCharacter ) )
                         {
@@ -230,7 +237,7 @@ public class MagicSquareChecker
                         badInput = true ;
                         continue ;
                         }
-                    
+                    // reads in and stores values of given matrix for later use, also checks for ordering and number errors
                     int nextFreeSpot = 0 ;
                     boolean lastCharIsComma = false ;
                     boolean lastCharIsColon = false ;
@@ -267,7 +274,7 @@ public class MagicSquareChecker
                             numOfCommas = 0 ;
                             lastCharIsColon = true ;
                             }
-                        
+                        // enables recognition of multi-digit numbers in string 
                         if ( Character.isDigit( currentCharacter ) )
                             {
                             int fullOperand = 0 ;
@@ -285,7 +292,7 @@ public class MagicSquareChecker
                                 break ;
                                 
                                 }
-                            
+                            // checks if matrix numbers are valid
                             if ( ( fullOperand < 1 ) || ( fullOperand > numOfVars ) )
                                 {
                                 System.out.printf( "Error - A Normal Magic Square Can Only Have Values From 1 - N^2 (N being its dimension)" ) ;
@@ -328,7 +335,7 @@ public class MagicSquareChecker
 
                     } while ( badInput ) ;
                 
-                
+                // inserts given values into matrix array
                 int counter = 0 ;
                 for ( int k = 0 ; k < userInputI ; k++ )
                     {
@@ -338,7 +345,8 @@ public class MagicSquareChecker
                         counter++ ;
                         }
                     }
-                
+
+                // calls function from helper classes to check if given matrix is a solution
                 System.out.printf( "%n" ) ;
                 if ( MagicSquareComputer.solutionChecker( matrix ) )
                     {
@@ -364,6 +372,7 @@ public class MagicSquareChecker
             // second option chosen
             if ( userInputI == 2 )
                 {
+                // reads in and error-checks given input
                 do
                     {
                     if ( !badInput ) 
@@ -400,7 +409,7 @@ public class MagicSquareChecker
 
                     } while ( badInput ) ;
                 
-                
+                // magic squares of dimensions 1x1 and 2x2 are simple/special, no further calculations needed
                 if ( userInputI == 1 )
                     {
                     System.out.printf( "A 1x1 normal magic square has only one solution: [1]" ) ;
@@ -410,7 +419,8 @@ public class MagicSquareChecker
                     {
                     System.out.printf( "There are no solutions for a 2x2 normal magic square" ) ;
                     }
-                
+
+                // calls helper classes to calculate solutions, keeping track of time elapsed before finishing
                 else 
                     {
                     long startTime ;
