@@ -129,7 +129,7 @@ public class MagicSquareChecker
                     return ;
                     }
 
-                // if chosen dimensions are 3x3 or higher, actual input is needed 
+                // if chosen dimensions are 3x3 or higher, further input is needed 
                 int numOfVars = ( int ) ( Math.pow( userInputI, 2 ) ) ;
                 int [][] matrix = new int[userInputI][userInputI] ;
                 int [] nums = new int[ numOfVars ] ;
